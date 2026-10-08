@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Check, Mail, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/context/ToastContext';

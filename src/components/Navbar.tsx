@@ -119,7 +119,6 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { items } = useTrip();
-  const { city } = useCity();
   const { dark, toggle } = useDarkMode();
   const location = useLocation();
 

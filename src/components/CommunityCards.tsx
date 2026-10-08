@@ -1,7 +1,7 @@
 import { Reveal } from '@/components/Reveal';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/context/ToastContext';
-import { localGuides, meetups, type Meetup } from '@/data/community';
+import { localGuides, type Meetup } from '@/data/community';
 import { useState } from 'react';
 
 // __CARDS__

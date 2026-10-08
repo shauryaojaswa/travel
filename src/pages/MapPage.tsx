@@ -16,7 +16,7 @@ import {
   type MapPoint,
   type PointCategory,
 } from '@/data/mapPoints';
-import { cn, formatINR } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 function makeIcon(point: MapPoint): L.DivIcon {
   const meta = categoryMeta[point.category];
@@ -337,107 +337,6 @@ export default function MapPage() {
             {counts.hostel} hostels · {cityPoints.length} pins · {cityRoutes.length} routes
           </p>
         </div>
-      </div>
-    </section>
-  );
-}
-      <div className="mx-auto max-w-7xl">
-        <SectionHeader
-          eyebrow="Discover"
-          title="Delhi Discovery Map"
-          subtitle="Every hostel, food stop, and itinerary route in one calm view. Tap a pin for exact details."
-        />
-
-        <div className="mt-12 overflow-hidden rounded-card border border-gray-100 bg-white shadow-calm">
-          <MapContainer
-            center={DELHI_CENTER}
-            zoom={12}
-            className="h-[60vh] min-h-[420px] w-full lg:h-[70vh]"
-            scrollWheelZoom
-            aria-label="Interactive map of Delhi discovery points"
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            />
-            <ZoomControl position="bottomright" />
-
-            {/* Dashed, color-coded itinerary routes */}
-            {mapRoutes.map((route) => (
-              <Polyline
-                key={route.id}
-                positions={route.points}
-                pathOptions={{
-                  color: route.color,
-                  weight: 3,
-                  dashArray: '2 12',
-                  lineCap: 'round',
-                  opacity: 0.85,
-                }}
-              >
-                <Popup>
-                  <div className="popup-title">{route.name}</div>
-                  <div className="popup-meta">Dashed walking / transit route</div>
-                </Popup>
-              </Polyline>
-            ))}
-            {/* Emoji circle markers with styled popups */}
-            {markers.map(({ point, icon }) => (
-              <Marker key={point.id} position={[point.lat, point.lng]} icon={icon}>
-                <Popup>
-                  <div className="popup-title">
-                    <span aria-hidden="true">{point.emoji}</span> {point.name}
-                  </div>
-                  <div className="popup-meta">{point.description}</div>
-                  <span className="popup-price">{point.price}</span>
-                </Popup>
-              </Marker>
-            ))}
-
-          </MapContainer>
-        </div>
-        {/* ============ LEGEND ============ */}
-        <div className="mt-6 flex flex-col gap-5 rounded-card border border-gray-100 bg-white p-6 shadow-calm sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:p-7">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3" aria-label="Map legend">
-            {legendOrder.map((cat) => (
-              <span key={cat} className="flex items-center gap-2.5 text-sm font-medium text-ink-medium">
-                <span
-                  className={'h-3 w-3 shrink-0 rounded-full ' + categoryMeta[cat].dot}
-                  aria-hidden="true"
-                />
-                {categoryMeta[cat].label}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3" aria-label="Route legend">
-            {mapRoutes.map((route) => (
-              <span
-                key={route.id}
-                className="flex items-center gap-2.5 text-sm font-medium text-ink-medium"
-              >
-                <svg width="26" height="10" aria-hidden="true">
-                  <line
-                    x1="1"
-                    y1="5"
-                    x2="25"
-                    y2="5"
-                    stroke={route.color}
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeDasharray="2 7"
-                  />
-                </svg>
-                {route.name}
-              </span>
-            ))}
-          </div>
-
-          <p className="shrink-0 rounded-full bg-primary-bg px-4 py-2 text-xs font-semibold text-primary">
-            5 hostels · 15 pins · 3 routes
-          </p>
-        </div>
-
       </div>
     </section>
   );
