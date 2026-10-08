@@ -73,7 +73,7 @@ export default function App() {
     <ToastProvider>
       <TripProvider>
         <CityProvider>
-          <BrowserRouter>
+          <BrowserRouter basename="/travel">
             <ScrollToTop />
             <div className="relative min-h-screen overflow-x-hidden">
               <Particles />

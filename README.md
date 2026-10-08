@@ -12,6 +12,12 @@ npm.cmd run build      # typecheck + production build
 npm.cmd run preview    # serve the production build
 ```
 
+## Deploy
+
+Every push to `main` builds and deploys the app to GitHub Pages:
+[https://shauryaojaswa.github.io/travel/](https://shauryaojaswa.github.io/travel/).
+In the repository's **Settings → Pages**, set the build and deployment source to **GitHub Actions**.
+
 ## Pages
 
 | Route | Page |
