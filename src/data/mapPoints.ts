@@ -1,0 +1,452 @@
+import { hostels } from './hostels';
+
+import type { CityId } from '@/context/CityContext';
+
+export type PointCategory = 'hostel' | 'food' | 'stop' | 'transit' | 'active' | 'cowork';
+
+export interface MapPoint {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  category: PointCategory;
+  emoji: string;
+  description: string;
+  price: string;
+  cityId: CityId;
+}
+
+export interface MapRoute {
+  id: string;
+  name: string;
+  color: string;
+  points: [number, number][];
+  label: string;
+  cityId: CityId;
+}
+
+export const categoryMeta: Record<
+  PointCategory,
+  { label: string; dot: string; markerBg: string }
+> = {
+  hostel: { label: 'Hostels', dot: 'bg-primary', markerBg: '#2D6A4F' },
+  food: { label: 'Food Spots', dot: 'bg-accent', markerBg: '#D4A373' },
+  stop: { label: 'Itinerary Stops', dot: 'bg-teal-500', markerBg: '#14B8A6' },
+  transit: { label: 'Transit', dot: 'bg-indigo-500', markerBg: '#6366F1' },
+  active: { label: 'Active Travel', dot: 'bg-lime-500', markerBg: '#65A30D' },
+  cowork: { label: 'Coworking', dot: 'bg-purple-500', markerBg: '#8B5CF6' },
+};
+
+export const hostelPoints: MapPoint[] = hostels.map((h) => ({
+  id: h.id,
+  name: h.name,
+  lat: h.lat,
+  lng: h.lng,
+  category: 'hostel' as const,
+  emoji: '🏨',
+  description: `${h.area} · ${h.rating}★ (${h.reviews} reviews)`,
+  price: `₹${h.price}/night`,
+  cityId: h.cityId,
+}));
+
+export const itineraryPoints: MapPoint[] = [
+  {
+    id: 'lodi-gardens',
+    name: 'Lodi Gardens',
+    lat: 28.5931,
+    lng: 77.2194,
+    category: 'stop',
+    emoji: '🌳',
+    description: '6th-century tombs among lawns — Art Crawl stop 1',
+    price: 'Free',
+    cityId: 'delhi',
+  },
+  {
+    id: 'khan-market',
+    name: 'Khan Market',
+    lat: 28.5985,
+    lng: 77.2318,
+    category: 'food',
+    emoji: '☕',
+    description: 'Bookstores and tea — Art Crawl stop 2',
+    price: '₹200 tea',
+    cityId: 'delhi',
+  },
+  {
+    id: 'chandni-chowk',
+    name: 'Chandni Chowk',
+    lat: 28.6562,
+    lng: 77.2301,
+    category: 'stop',
+    emoji: '🏮',
+    description: 'Old Delhi’s heart — Food Trek stop 1',
+    price: 'Free',
+    cityId: 'delhi',
+  },
+  {
+    id: 'paranthe-wali-gali',
+    name: 'Paranthe Wali Gali',
+    lat: 28.657,
+    lng: 77.2315,
+    category: 'food',
+    emoji: '🍽️',
+    description: 'Legendary fried paranthe since 1872 — Food Trek stop 2',
+    price: '₹150 lunch',
+    cityId: 'delhi',
+  },
+  {
+    id: 'jama-masjid',
+    name: 'Jama Masjid',
+    lat: 28.6507,
+    lng: 77.2334,
+    category: 'stop',
+    emoji: '🕌',
+    description: 'India’s largest mosque — Food Trek stop 3',
+    price: 'Free entry',
+    cityId: 'delhi',
+  },
+  {
+    id: 'cafe-turtle',
+    name: 'Cafe Turtle',
+    lat: 28.548,
+    lng: 77.1985,
+    category: 'food',
+    emoji: '🐢',
+    description: 'Coffee + fast WiFi — Nomad Day stop 1',
+    price: '₹250',
+    cityId: 'delhi',
+  },
+  {
+    id: 'deer-park',
+    name: 'Deer Park',
+    lat: 28.555,
+    lng: 77.196,
+    category: 'stop',
+    emoji: '🦌',
+    description: 'Quiet forest walk — Nomad Day stop 2',
+    price: 'Free',
+    cityId: 'delhi',
+  },
+  {
+    id: 'hauz-khas-lake',
+    name: 'Hauz Khas Lake',
+    lat: 28.547,
+    lng: 77.195,
+    category: 'stop',
+    emoji: '🌇',
+    description: 'Sunset over ruins — Nomad Day stop 3',
+    price: 'Free',
+    cityId: 'delhi',
+  },
+  {
+    id: 'new-delhi-station',
+    name: 'New Delhi Station',
+    lat: 28.643,
+    lng: 77.2194,
+    category: 'transit',
+    emoji: '🚇',
+    description: 'Metro + railway interchange',
+    price: 'Metro from ₹20',
+    cityId: 'delhi',
+  },
+  {
+    id: 'connaught-place',
+    name: 'Connaught Place',
+    lat: 28.6315,
+    lng: 77.2167,
+    category: 'transit',
+    emoji: '🚇',
+    description: 'Central metro hub & colonnades',
+    price: 'Metro from ₹20',
+    cityId: 'delhi',
+  },
+  // --- Extra food spots ---
+  {
+    id: 'karims-restaurant',
+    name: "Karim's Restaurant",
+    lat: 28.6495,
+    lng: 77.234,
+    category: 'food',
+    emoji: '🍖',
+    description: 'Mughlai legend since 1913 — Food Trek approved',
+    price: '₹250 thali',
+    cityId: 'delhi',
+  },
+  {
+    id: 'social-hkv',
+    name: 'Social Hauz Khas',
+    lat: 28.55,
+    lng: 77.198,
+    category: 'cowork',
+    emoji: '💻',
+    description: 'Café by day, bar by night — Nomad Day lunch stop',
+    price: '₹350 lunch',
+    cityId: 'delhi',
+  },
+  {
+    id: 'elmas-bakery',
+    name: "Elma's Bakery",
+    lat: 28.5495,
+    lng: 77.1975,
+    category: 'food',
+    emoji: '🧁',
+    description: 'Red velvet + English breakfasts in a cottage garden',
+    price: '₹400 brunch',
+    cityId: 'delhi',
+  },
+  {
+    id: 'hauz-khas-metro',
+    name: 'Hauz Khas Metro',
+    lat: 28.5455,
+    lng: 77.206,
+    category: 'transit',
+    emoji: '🚇',
+    description: 'Gateway to Hauz Khas Village & Deer Park',
+    price: 'Metro from ₹20',
+    cityId: 'delhi',
+  },
+  // --- Active travel ---
+  {
+    id: 'lodhi-run-loop',
+    name: 'Lodhi Garden Running Loop',
+    lat: 28.5931,
+    lng: 77.2194,
+    category: 'active',
+    emoji: '🏃',
+    description: '2.3 km shaded loop — flat, lit, water fountains',
+    price: 'Free · run club Sat 6 AM',
+    cityId: 'delhi',
+  },
+  {
+    id: 'nehru-park-yoga',
+    name: 'Nehru Park Yoga Spot',
+    lat: 28.59,
+    lng: 77.21,
+    category: 'active',
+    emoji: '🧘',
+    description: 'Morning yoga lawns, mats available at the gate',
+    price: 'Free · classes ₹300',
+    cityId: 'delhi',
+  },
+  {
+    id: 'india-gate-cycling',
+    name: 'India Gate Cycling Track',
+    lat: 28.6129,
+    lng: 77.2295,
+    category: 'active',
+    emoji: '🚲',
+    description: '5 km car-free loop around the lawns at dawn',
+    price: 'Free · rentals ₹150',
+    cityId: 'delhi',
+  },
+  {
+    id: 'hkv-fitness-zone',
+    name: 'Hauz Khas Fitness Zone',
+    lat: 28.552,
+    lng: 77.197,
+    category: 'active',
+    emoji: '💪',
+    description: 'Open-air gym + calisthenics park by the lake',
+    price: 'Free',
+    cityId: 'delhi',
+  },
+  // --- Coworking ---
+  {
+    id: 'ccd-cp',
+    name: 'Cafe Coffee Day CP',
+    lat: 28.6315,
+    lng: 77.2167,
+    category: 'cowork',
+    emoji: '☕',
+    description: 'Plug points on every table, central metro access',
+    price: '₹200/day pass',
+    cityId: 'delhi',
+  },
+  {
+    id: 'wework-dlf',
+    name: 'WeWork DLF',
+    lat: 28.56,
+    lng: 77.21,
+    category: 'cowork',
+    emoji: '🖥️',
+    description: 'Day passes with 100 Mbps + meeting rooms',
+    price: '₹800/day pass',
+    cityId: 'delhi',
+  },
+  // --- Jaipur pins ---
+  {
+    id: 'hawa-mahal',
+    name: 'Hawa Mahal',
+    lat: 26.9239,
+    lng: 75.8267,
+    category: 'stop',
+    emoji: '🏰',
+    description: '953-window facade — Heritage Walk stop 1',
+    price: '₹200 entry',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'city-palace-jaipur',
+    name: 'City Palace',
+    lat: 26.9258,
+    lng: 75.8237,
+    category: 'stop',
+    emoji: '👑',
+    description: 'Royal courtyards + textile gallery — Heritage Walk stop 2',
+    price: '₹300 entry',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'jantar-mantar',
+    name: 'Jantar Mantar',
+    lat: 26.9247,
+    lng: 75.8246,
+    category: 'stop',
+    emoji: '☀️',
+    description: 'Giant sundials — Heritage Walk stop 3',
+    price: '₹50 + lassi',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'nahargarh-fort',
+    name: 'Nahargarh Fort',
+    lat: 26.9373,
+    lng: 75.8152,
+    category: 'stop',
+    emoji: '🌄',
+    description: 'Sunset trek summit over the Pink City',
+    price: '₹100 trail',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'johari-bazaar',
+    name: 'Johari Bazaar',
+    lat: 26.9221,
+    lng: 75.8295,
+    category: 'food',
+    emoji: '💎',
+    description: 'Jewelry, textiles, spices + kachori — Shopping Crawl',
+    price: '₹200 snacks',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'lmb-jaipur',
+    name: 'LMB Corner',
+    lat: 26.9205,
+    lng: 75.827,
+    category: 'food',
+    emoji: '🥘',
+    description: 'Legendary pyaaz kachori + saffron lassi',
+    price: '₹120 combo',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'jaipur-junction',
+    name: 'Jaipur Junction',
+    lat: 26.9161,
+    lng: 75.7869,
+    category: 'transit',
+    emoji: '🚂',
+    description: 'Shatabdi terminus — Delhi corridor gateway',
+    price: 'From ₹1,050',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'bapu-bazaar-run',
+    name: 'Central Park Running Loop',
+    lat: 26.8887,
+    lng: 75.8068,
+    category: 'active',
+    emoji: '🏃',
+    description: '4 km loop with flamingos in winter — run club Sun 6 AM',
+    price: 'Free',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'jaipur-cowork',
+    name: 'Startup Oasis Jaipur',
+    lat: 26.9124,
+    lng: 75.7873,
+    category: 'cowork',
+    emoji: '💻',
+    description: 'Day passes with chai-on-tap near Bani Park',
+    price: '₹400/day pass',
+    cityId: 'jaipur',
+  },
+];
+
+export const mapRoutes: MapRoute[] = [
+  {
+    id: 'art-crawl',
+    name: 'Art Crawl',
+    color: '#2D6A4F',
+    points: [
+      [28.5931, 77.2194],
+      [28.5985, 77.2318],
+    ],
+    label: '2.3 km · 30 min walk',
+    cityId: 'delhi',
+  },
+  {
+    id: 'food-trek',
+    name: 'Food Trek',
+    color: '#D4A373',
+    points: [
+      [28.6562, 77.2301],
+      [28.657, 77.2315],
+      [28.6507, 77.2334],
+    ],
+    label: '1.2 km · 20 min walk',
+    cityId: 'delhi',
+  },
+  {
+    id: 'nomad-day',
+    name: 'Nomad Day',
+    color: '#6366F1',
+    points: [
+      [28.548, 77.1985],
+      [28.555, 77.196],
+      [28.547, 77.195],
+    ],
+    label: '1.8 km · 25 min walk',
+    cityId: 'delhi',
+  },
+  {
+    id: 'active-route',
+    name: 'Dawn Run',
+    color: '#65A30D',
+    points: [
+      [28.6129, 77.2295],
+      [28.5931, 77.2194],
+    ],
+    label: '5 km · running route',
+    cityId: 'delhi',
+  },
+  {
+    id: 'heritage-walk',
+    name: 'Heritage Walk',
+    color: '#2D6A4F',
+    points: [
+      [26.9239, 75.8267],
+      [26.9258, 75.8237],
+      [26.9247, 75.8246],
+    ],
+    label: '1.5 km · 25 min walk',
+    cityId: 'jaipur',
+  },
+  {
+    id: 'nahargarh-trek',
+    name: 'Sunset Trek',
+    color: '#D4A373',
+    points: [
+      [26.9221, 75.8295],
+      [26.9373, 75.8152],
+    ],
+    label: '6 km uphill · 75 min',
+    cityId: 'jaipur',
+  },
+];
+
+export const allPoints: MapPoint[] = [...hostelPoints, ...itineraryPoints];
+
+export const DELHI_CENTER: [number, number] = [28.6139, 77.209];

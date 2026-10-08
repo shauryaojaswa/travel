@@ -1,0 +1,300 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink-dark;
+    line-height: 1.75;
+    font-weight: 400;
+    font-feature-settings: 'cv02', 'cv03';
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif font-normal text-ink-dark;
+  }
+
+  ::selection {
+    background-color: #95d5b2;
+    color: #1b4332;
+  }
+
+  :focus-visible {
+    outline: 2px solid #52b788;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Calm, slim scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f0faf4;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #95d5b2;
+    border-radius: 999px;
+    border: 2px solid #f0faf4;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #52b788;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card surface */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+
+  /* Gradient top edge that appears on card hover */
+  .gradient-edge {
+    position: relative;
+    overflow: hidden;
+  }
+  .gradient-edge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #52b788, #95d5b2, #d4a373);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+  }
+  .gradient-edge:hover::before {
+    opacity: 1;
+  }
+
+  /* Glass input surface */
+  .calm-input {
+    @apply w-full rounded-input border border-gray-200 bg-white px-4 py-2.5 text-sm text-ink-dark shadow-calm transition placeholder:text-ink-light;
+  }
+  .calm-input:focus {
+    outline: none;
+    border-color: #52b788;
+    box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.25);
+  }
+}
+
+/* ---------------- Leaflet calm theme ---------------- */
+.leaflet-container {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  border-radius: 24px;
+  z-index: 0;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(45, 106, 79, 0.15);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: 4px;
+}
+
+.leaflet-popup-content {
+  margin: 14px 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #1b4332;
+  min-width: 180px;
+}
+
+.leaflet-popup-tip {
+  box-shadow: 0 4px 20px rgba(45, 106, 79, 0.12);
+}
+
+.leaflet-popup-close-button {
+  color: #84a98c !important;
+  padding: 8px 10px 0 0 !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.75) !important;
+  color: #84a98c !important;
+  font-size: 10px !important;
+  border-radius: 8px 0 0 0;
+}
+
+.leaflet-control-attribution a {
+  color: #52796f !important;
+}
+
+.leaflet-control-zoom a {
+  border-radius: 10px !important;
+  color: #2d6a4f !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(45, 106, 79, 0.1) !important;
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+  gap: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.calm-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  font-size: 17px;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(45, 106, 79, 0.28);
+  transition: transform 0.25s ease;
+}
+
+.calm-marker:hover {
+  transform: scale(1.22);
+}
+
+.popup-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.popup-meta {
+  color: #52796f;
+  font-size: 12.5px;
+}
+
+.popup-price {
+  display: inline-block;
+  margin-top: 8px;
+  background: #f0faf4;
+  color: #2d6a4f;
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* Reduced motion: keep the app calm for everyone */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------- Dark "night forest" theme ---------------- */
+.dark {
+  color-scheme: dark;
+}
+.dark body {
+  background-color: #0c1712;
+  color: #d8e8dc;
+}
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4 {
+  color: #edf6ef;
+}
+.dark .glass {
+  background: rgba(18, 33, 26, 0.72);
+  border-color: rgba(149, 213, 178, 0.16);
+}
+.dark .bg-white {
+  background-color: #132219 !important;
+}
+.dark .bg-primary-bg {
+  background-color: rgba(45, 106, 79, 0.2) !important;
+}
+.dark [class*='bg-gray-50'] {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+.dark .border-gray-100,
+.dark .border-gray-200 {
+  border-color: rgba(149, 213, 178, 0.14) !important;
+}
+.dark .text-ink-dark {
+  color: #eaf4ed !important;
+}
+.dark .text-ink-medium {
+  color: #a9c6b2 !important;
+}
+.dark .text-ink-light {
+  color: #7fa78b !important;
+}
+.dark .text-primary {
+  color: #95d5b2 !important;
+}
+.dark .calm-input {
+  background-color: #0f1d15;
+  border-color: rgba(149, 213, 178, 0.22);
+  color: #eaf4ed;
+}
+.dark .calm-input option {
+  background-color: #132219;
+}
+.dark .bg-amber-50 {
+  background-color: rgba(180, 120, 40, 0.18) !important;
+}
+.dark .text-amber-700 {
+  color: #fbbf24 !important;
+}
+.dark .text-accent {
+  color: #e8b98a !important;
+}
+.dark .bg-accent-light {
+  background-color: rgba(212, 163, 115, 0.16) !important;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0c1712;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #2d6a4f;
+  border-color: #0c1712;
+}
+/* Dark map: dim only the tiles, keep UI bright */
+.dark .leaflet-tile-pane {
+  filter: brightness(0.82) saturate(0.75);
+}
+.dark .calm-marker {
+  border-color: #132219;
+}
+.dark .leaflet-popup-content-wrapper {
+  background: #132219;
+  border-color: rgba(149, 213, 178, 0.2);
+}
+.dark .leaflet-popup-content {
+  color: #eaf4ed;
+}
+.dark .popup-meta {
+  color: #a9c6b2;
+}
+.dark .popup-price {
+  background: rgba(45, 106, 79, 0.3);
+  color: #95d5b2;
+}
+.dark .leaflet-popup-tip {
+  background: #132219;
+}
+.dark .leaflet-control-attribution {
+  background: rgba(19, 34, 25, 0.8) !important;
+}
